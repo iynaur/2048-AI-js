@@ -112,7 +112,7 @@ HTMLActuator.prototype.addTile = function (tile) {
 
     // Render the tiles that merged
     tile.mergedFrom.forEach(function (merged) {
-      self.addTile(merged);
+      // self.addTile(merged);
     });
   } else {
     classes.push("tile-new");
@@ -147,13 +147,13 @@ HTMLActuator.prototype.updateScore = function (score) {
 
   this.scoreContainer.textContent = this.score;
 
-  if (difference > 0) {
-    var addition = document.createElement("div");
-    addition.classList.add("score-addition");
-    addition.textContent = "+" + difference;
+  // if (difference > 0) {
+  //   var addition = document.createElement("div");
+  //   addition.classList.add("score-addition");
+  //   addition.textContent = "+" + difference;
 
-    this.scoreContainer.appendChild(addition);
-  }
+    // this.scoreContainer.appendChild(addition);
+  // }
 };
 
 HTMLActuator.prototype.updateBestScore = function (bestScore) {
