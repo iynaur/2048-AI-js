@@ -13,12 +13,19 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
   window.requestAnimationFrame(function () {
     self.clearContainer(self.tileContainer);
 
+    var col = 0;
+    
     grid.cells.forEach(function (column) {
+      var row = 0;
       column.forEach(function (cell) {
         if (cell) {
           self.addTile(cell);
+        } else {
+          self.addEmpty(row, col);
         }
+        row++;
       });
+      col++;
     });
 
     self.updateScore(metadata.score);
@@ -33,6 +40,35 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
     }
 
   });
+};
+
+HTMLActuator.prototype.addEmpty = function (row, col) {
+  var self = this;
+
+  var wrapper   = document.createElement("div");
+  var inner     = document.createElement("div");
+  var position  = { x: col, y: row };
+  var positionClass = this.positionClass(position);
+
+  // We can't use classlist because it somehow glitches when replacing classes
+  var classes = ["tile", "tile-" + 0, positionClass];
+
+
+  this.applyClasses(wrapper, classes);
+
+  inner.classList.add("tile-inner");
+  inner.textContent = 0;
+
+  {
+    classes.push("tile-new");
+    this.applyClasses(wrapper, classes);
+  }
+
+  // Add the inner part of the tile to the wrapper
+  wrapper.appendChild(inner);
+
+  // Put the tile on the board
+  this.tileContainer.appendChild(wrapper);
 };
 
 // Continues the game (both restart and keep playing)
