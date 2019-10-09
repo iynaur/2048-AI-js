@@ -106,47 +106,4 @@
   <script src="./2048_files/game_manager.js"></script>
   <script src="./2048_files/application.js"></script>
   <script src="./2048_files/ai.js"></script>
-  <script>
-    var ai = new AI();
-    var continuous = false;
-    var time_out = null;
-    var interval = 500;
-    var after_win = false;
-    function ai_run() {
-      time_out = null;
-      if (!global_game || global_game.over || (global_game.won && !after_win)) return;
-      
-      for (var i = 0; i < 4; ++i) {
-        for (var j = 0; j < 4; ++j) {
-          var t = global_game.grid.cells[i][j];
-          if (t) {
-            ai.SetTile(i, j, t.value);
-          } else {
-            ai.SetTile(i, j, 0);
-          }
-        }
-      }
-      var dir = [3, 2, 1, 0]
-      ai.StartSearch();
-      global_game.move(dir[ai.best_operation]);
-      if (continuous) {
-        if (time_out == null) {
-          time_out = window.setTimeout("ai_run()", interval);
-        }
-      }
-    }
-    function run(is_continuous, need_run, is_crazy) {
-      continuous = is_continuous;
-      document.getElementById("stop").disabled = !continuous;
-      interval = is_crazy ? 0 : 500;
-      if (need_run) {
-        if (global_game && global_game.won) {
-          after_win = true;
-        }
-        ai_run();
-      }
-    }
-  </script>
-
-
 </body></html>
