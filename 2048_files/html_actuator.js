@@ -21,7 +21,7 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
         if (cell) {
           self.addTile(cell);
         } else {
-          self.addEmpty(row, col);
+          // self.addEmpty(row, col);
         }
         row++;
       });
@@ -68,7 +68,7 @@ HTMLActuator.prototype.addEmpty = function (row, col) {
   wrapper.appendChild(inner);
 
   // Put the tile on the board
-  this.tileContainer.appendChild(wrapper);
+  // this.tileContainer.appendChild(wrapper);
 };
 
 // Continues the game (both restart and keep playing)

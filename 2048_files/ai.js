@@ -1,6 +1,13 @@
-function AI() {
+var size;
+
+var sqrsize;// = size * size;
+
+function AI(gridsize) {
+  this.size = gridsize;
+  size = gridsize;
+  sqrsize = size * size;
   this.best_operation = 0;
-  this.grid = Array(16);
+  this.grid = Array(this.sqrsize);
   this.node = 0;
   this.max_depth = 3;
 }
@@ -9,8 +16,8 @@ AI.prototype.MoveLeft = function(s) {
   var k = 0;
   var base = 0;
   var score = 0;
-  var result = new Array(16);
-  for (var i = 4; i <= 16; i += 4) {
+  var result = new Array(sqrsize);
+  for (var i = size; i <= sqrsize; i += size) {
     while (k < i) {
       if (s[k] == 0) {
         ++k;
@@ -32,6 +39,16 @@ AI.prototype.MoveLeft = function(s) {
 };
   
 AI.prototype.Rotate = function(s) {
+  var ns = new Array();
+  for (var i = 0; i < size; ++i)
+  {
+    for (var j = 0; j < size; ++j)
+    {
+      ns.push(s[(size - j - 1) * size + i]);
+    }
+  }
+  return ns;
+
   return new Array(s[12], s[8], s[4], s[0],
                    s[13], s[9], s[5], s[1],
                    s[14], s[10], s[6], s[2],
@@ -41,13 +58,13 @@ AI.prototype.Rotate = function(s) {
 AI.prototype.Estimate = function(s) {
   var diff = 0;
   var sum = 0;
-  for (var i = 0; i < 16; ++i) {
+  for (var i = 0; i < sqrsize; ++i) {
     sum += s[i];
-    if (i % 4 != 3) {
+    if (i % size != size - 1) {
       diff += Math.abs(s[i] - s[i + 1]);
     }
-    if (i < 12) {
-      diff += Math.abs(s[i] - s[i + 4]);
+    if (i < sqrsize - size) {
+      diff += Math.abs(s[i] - s[i + size]);
     }
   }
   return (sum * 4 - diff) * 2;
@@ -57,11 +74,11 @@ AI.prototype.Search = function(s, depth) {
   this.node++;
   if (depth >= this.max_depth) return this.Estimate(s);
   var best = -1;
-  for (var i = 0; i < 4; ++i) {
+  for (var i = 0; i < size; ++i) {
     var results = this.MoveLeft(s);
     var t = results[0];
     var same = true;
-    for (var j = 0; j < 16; ++j) {
+    for (var j = 0; j < sqrsize; ++j) {
       if (t[j] != s[j]) {
         same = false;
         break;
@@ -70,7 +87,7 @@ AI.prototype.Search = function(s, depth) {
     if (!same) {
       var temp = 0;
       var empty_slots = 0;
-      for (var j = 0; j < 16; ++j) {
+      for (var j = 0; j < sqrsize; ++j) {
       	if (t[j] == 0) {
       	  t[j] = 2;
                 ++empty_slots;
@@ -93,7 +110,7 @@ AI.prototype.Search = function(s, depth) {
         }
       }
     }
-    if (i != 3) {
+    if (i != size - 1) {
       s = this.Rotate(s);
     }
   }    
@@ -101,7 +118,7 @@ AI.prototype.Search = function(s, depth) {
 };
 
 AI.prototype.SetTile = function(x, y, v) {
-  this.grid[x + y * 4] = v;
+  this.grid[x + y * this.size] = v;
 };
 
 AI.prototype.StartSearch = function() {
@@ -115,17 +132,19 @@ AI.prototype.StartSearch = function() {
   }
 };
 
-var ai = new AI();
+
 var continuous = false;
 var time_out = null;
 var interval = 500;
 var after_win = false;
 function ai_run() {
+  var size = global_game.size;
+  var ai = new AI(size);
   time_out = null;
   if (!global_game || global_game.over || (global_game.won && !after_win)) return;
 
-  for (var i = 0; i < 4; ++i) {
-    for (var j = 0; j < 4; ++j) {
+  for (var i = 0; i < size; ++i) {
+    for (var j = 0; j < size; ++j) {
       var t = global_game.grid.cells[i][j];
       if (t) {
         ai.SetTile(i, j, t.value);
