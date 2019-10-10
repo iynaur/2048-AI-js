@@ -68,7 +68,7 @@ HTMLActuator.prototype.addEmpty = function (row, col) {
   wrapper.appendChild(inner);
 
   // Put the tile on the board
-  // this.tileContainer.appendChild(wrapper);
+  this.tileContainer.appendChild(wrapper);
 };
 
 // Continues the game (both restart and keep playing)
@@ -124,6 +124,7 @@ HTMLActuator.prototype.addTile = function (tile) {
 
   // Put the tile on the board
   this.tileContainer.appendChild(wrapper);
+  wrapper.style.transform = "translate(" + tile.x*110 + "px, " + tile.y*110 + "px)"
 };
 
 HTMLActuator.prototype.applyClasses = function (element, classes) {

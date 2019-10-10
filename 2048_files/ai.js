@@ -9,7 +9,7 @@ function AI(gridsize) {
   this.best_operation = 0;
   this.grid = Array(this.sqrsize);
   this.node = 0;
-  this.max_depth = 3;
+  this.max_depth;
 }
 
 AI.prototype.MoveLeft = function(s) {
@@ -123,7 +123,7 @@ AI.prototype.SetTile = function(x, y, v) {
 
 AI.prototype.StartSearch = function() {
   this.node = 0;
-  this.max_depth = 3;
+  this.max_depth = size < 5 ? 3 : 2;
   while (true) {
     this.node = 0;
     this.Search(this.grid, 0);
