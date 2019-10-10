@@ -74,7 +74,7 @@ AI.prototype.Search = function(s, depth) {
   this.node++;
   if (depth >= this.max_depth) return this.Estimate(s);
   var best = -1;
-  for (var i = 0; i < size; ++i) {
+  for (var i = 0; i < 4; ++i) {//4 direction
     var results = this.MoveLeft(s);
     var t = results[0];
     var same = true;
@@ -110,7 +110,7 @@ AI.prototype.Search = function(s, depth) {
         }
       }
     }
-    if (i != size - 1) {
+    if (i != 3) {
       s = this.Rotate(s);
     }
   }    
