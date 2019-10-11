@@ -155,6 +155,7 @@ function ai_run() {
   }
   var dir = [3, 2, 1, 0]
   ai.StartSearch();
+  console.log(ai.best_operation);
   global_game.move(dir[ai.best_operation]);
   if (continuous) {
     if (time_out == null) {
