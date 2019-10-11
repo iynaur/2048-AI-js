@@ -6,7 +6,7 @@ function AI(gridsize) {
   this.size = gridsize;
   size = gridsize;
   sqrsize = size * size;
-  this.best_operation = 0;
+  this.best_operation = -1;
   this.grid = Array(this.sqrsize);
   this.node = 0;
   this.max_depth;
@@ -85,6 +85,9 @@ AI.prototype.Search = function(s, depth) {
       }
     }
     if (!same) {
+      if (depth == 0 && this.best_operation == -1) {
+        this.best_operation = i;
+      }
       var temp = 0;
       var empty_slots = 0;
       for (var j = 0; j < sqrsize; ++j) {
@@ -98,7 +101,7 @@ AI.prototype.Search = function(s, depth) {
       	}
       }
       if (empty_slots != 0) {
-      	temp /= empty_slots;
+        temp /= empty_slots;
       } else {
         temp = -1e+20;
       }
