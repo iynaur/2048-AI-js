@@ -1,0 +1,16 @@
+{
+  "name": "flawless-engine-brake",
+  "productName": "flawless-engine-brake",
+  "description": "My Electron application description",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.0.0",
+  "author": "ruan",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "6.0.9"
+  }
+}
