@@ -25,11 +25,16 @@
     <p class="game-intro">Join the numbers and get to the <strong>2048 tile!</strong><br>
       </p><div style="background:#88CCFF;padding:4px;">
         <div style="margin:0px auto;text-align:center;">
+          <font color="white">Size.</font>&nbsp;&nbsp;  
+          <input type="text" name="newitem" id="newitem" placeholder="3" />
+        </div>
+        <div style="margin:0px auto;text-align:center;">
           <font color="white">I'm a robot.</font>&nbsp;&nbsp;  
           <button onclick="run(true, true, false);"><font color="red">&nbsp;&nbsp;&nbsp;Run!&nbsp;&nbsp;&nbsp;</font></button>
           <button onclick="run(true, true, true);">Get Crazy</button>
           <button onclick="run(false, true, false);">One Step</button>
           <button onclick="run(false, false, false);" disabled="true" id="stop">Stop</button>
+          <button onclick="rerun(4);">rerun</button>
         </div>
       </div>
     <p></p>
