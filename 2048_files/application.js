@@ -8,5 +8,5 @@ function rerun(size) {
   var field = document.querySelector('#newitem');
 
                 var text = field.value;
-  global_game = new GameManager(text, KeyboardInputManager, HTMLActuator, LocalScoreManager);
+  global_game = new GameManager(parseInt(text));
 }
